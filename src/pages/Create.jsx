@@ -4,12 +4,30 @@ import Button from '@material-ui/core/Button'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Container from '@material-ui/core/Container'
 import AcUnitOutlinedIcon from '@material-ui/icons/AcUnitOutlined'
+import { withStyles } from "@material-ui/core/styles"
 
-export default class Create extends Component {
+const useStyles = (theme) => ({
+    btn: {
+        fontSize: 60,
+        backgroundColor: 'violet',
+        '&:hover': {
+            backgroundColor: 'blue'
+        }
+    },
+    title: {
+        textDecoration: 'underline',
+        marginBottom: 20
+    }
+})
+
+class Create extends Component {
     render() {
+        const { classes } = this.props;
         return (
             <Container>
-                <Typography variant="h1" color="primary" align="center">
+                <Typography 
+                    className={classes.title}
+                    variant="h1" color="primary" align="center">
                     Create a new Note
                 </Typography>
                 <Typography noWrap color="secondary">
@@ -59,7 +77,7 @@ export default class Create extends Component {
                 <AcUnitOutlinedIcon color="disabled" fontSize="small"/>
                 <br />
                 <br />
-                <Button 
+                <Button className={classes.btn}
                     type="submit" 
                     color="secondary" 
                     variant="contained"
@@ -69,3 +87,5 @@ export default class Create extends Component {
         )
     }
 }
+
+export default withStyles(useStyles) (Create)
