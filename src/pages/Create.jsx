@@ -5,6 +5,10 @@ import Container from '@material-ui/core/Container'
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 import { withStyles } from "@material-ui/core/styles"
 import TextField from '@material-ui/core/TextField'
+import Radio from '@material-ui/core/Radio'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import { FormControl, FormLabel } from '@material-ui/core'
 
 const useStyles = () => ({
     field: {
@@ -18,6 +22,7 @@ class Create extends Component {
     state = {
         title: '',
         details: '',
+        category: 'todos',
         titleError: false,
         detailsError: false
     }
@@ -28,6 +33,10 @@ class Create extends Component {
 
     handleDetails = (e) => {
         this.setState({details: e.target.value.trim()})
+    }
+
+    handleCategory = (e) => {
+        this.setState({category: e.target.value})
     }
 
     handleSubmit = (e) => {
@@ -85,6 +94,16 @@ class Create extends Component {
                         required
                         error={this.state.detailsError}
                     />
+                    <FormControl className={classes.field}> 
+                        <FormLabel>Note Category</FormLabel>
+                        <RadioGroup value={this.state.category} onChange={this.handleCategory}>
+                            <FormControlLabel value="money" control={<Radio />} label="Money" />
+                            <FormControlLabel value="todos" control={<Radio />} label="Todos" />
+                            <FormControlLabel value="reminders" control={<Radio />} label="Reminders" />
+                            <FormControlLabel value="work" control={<Radio />} label="Work" />
+                        </RadioGroup>
+                    </FormControl>
+
                     <Button
                         onClick={this.handleSubmit}
                         type="sumbit"

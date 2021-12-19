@@ -7,9 +7,6 @@ import { purple } from '@material-ui/core/colors'
 
 const theme = createTheme({
   palette: {
-    primary: {
-      main: '#FEFEFE'
-    },
     secondary: purple
   },
   typography: {
