@@ -1,48 +1,27 @@
-import React from 'react'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
+import { Component } from 'react'
 import Container from '@material-ui/core/Container'
-import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
-import { makeStyles } from "@material-ui/core/styles"
+import fetch from 'isomorphic-fetch'
 
-const useStyles = makeStyles({
-    btn: {
-        fontSize: 60,
-        backgroundColor: 'violet',
-        '&:hover': {
-            backgroundColor: 'blue'
-        }
-    },
-    title: {
-        textDecoration: 'underline',
-        marginBottom: 20
+
+export default class Note extends Component {
+    state = {
+        notes: []
     }
-})
 
-export default function Create() { 
-    const classes = useStyles()
+    async componentDidMount() {
+        let response = await fetch(`http://localhost:8000/notes`);
+        const notes = response.ok ? await response.json() : null
+        console.log(notes)
+        this.setState({notes})
+    }
 
-    return (
-        <Container>
-            <Typography
-                className={classes.title} 
-                variant="h6" 
-                color="textSecondary" 
-                component="h2" 
-                gutterBottom
-            >
-                Show a Note
-            </Typography>
-            <Button 
-                className={classes.btn}
-                onClick={() => console.log('You clicked me')}
-                type="sumbit"
-                color="secondary"
-                variant="contained"
-                endIcon={<KeyboardArrowRightIcon />}
-            >
-                Submit
-            </Button>
-        </Container>
-    )
+    render() {
+        const {notes} = this.state
+        return (
+            <Container>
+                {notes.map(note => <p key={note.id}>{note.title}</p>)}
+            </Container>
+        )
+    }
+
 }
