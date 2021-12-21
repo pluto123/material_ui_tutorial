@@ -9,6 +9,7 @@ import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import { FormControl, FormLabel } from '@material-ui/core'
+import fetch from 'isomorphic-fetch'
 
 const useStyles = () => ({
     field: {
@@ -40,21 +41,27 @@ class Create extends Component {
     }
 
     handleSubmit = (e) => {
-        const {title, details} = this.state
+        const {title, details, category} = this.state
+        this.setState({titleError: false})
+        this.setState({detailsError: false})
 
         e.preventDefault()
         if (title === '') {
             this.setState({titleError: true})
         }
-        else {
-            this.setState({titleError: false})
-        }
         if (details === '') {
             this.setState({detailsError: true})
         }
-        else {
-            this.setState({detailsError: false})
+        if (title && details) {
+            fetch('http://localhost:8000/notes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({title, details, category})
+            }).then(() => this.props.history.push('/note'))
         }
+
 
         console.log(this.state)
     }
