@@ -1,7 +1,8 @@
 import { Component } from 'react'
 import Container from '@material-ui/core/Container'
 import fetch from 'isomorphic-fetch'
-
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
 
 export default class Note extends Component {
     state = {
@@ -19,9 +20,14 @@ export default class Note extends Component {
         const {notes} = this.state
         return (
             <Container>
-                {notes.map(note => <p key={note.id}>{note.title}</p>)}
+                <Grid container>
+                    {notes.map(note => (
+                        <Grid item key={note.id} xs={12} md={6} lg={4}>
+                            <Paper>{note.title}</Paper>
+                        </Grid>
+                    ))}
+                </Grid>
             </Container>
         )
     }
-
 }
