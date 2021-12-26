@@ -12,10 +12,11 @@ import { AddCircleOutlineOutlined, SubjectOutlined } from '@material-ui/icons'
 
 const drawerWith = 240
 
-const useStyles = () => ({
+const useStyles = (theme) => ({
     page: {
         background: '#F9F9F9',
-        width: '100%'
+        width: '100%',
+        padding: theme.spacing(3)
     },
     drawer: {
         width: drawerWith
@@ -25,6 +26,9 @@ const useStyles = () => ({
     },
     root: {
         display: 'flex'
+    },
+    title: {
+        padding: theme.spacing(2)
     }
 })
 
@@ -64,7 +68,7 @@ class Layout extends Component {
                     classes={{ paper: classes.drawerPaper}}
                 >
                     <div>
-                        <Typography variant="h5">
+                        <Typography variant="h5" className={classes.title}>
                             Steven Notes
                         </Typography>
                     </div>
