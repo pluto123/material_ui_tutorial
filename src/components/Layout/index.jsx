@@ -4,6 +4,11 @@ import { withStyles } from "@material-ui/core/styles"
 import { Route, Switch, Link } from 'react-router-dom'
 import Create from '../../pages/Create'
 import Note from '../../pages/Note'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import { AddCircleOutlineOutlined, SubjectOutlined } from '@material-ui/icons'
 
 const drawerWith = 240
 
@@ -23,11 +28,33 @@ const useStyles = () => ({
     }
 })
 
+const menuItems = [
+    {
+        text: 'My Notes',
+        icon: <SubjectOutlined color="secondary" />,
+        path: '/'
+    },
+    {
+        text: 'Create Note',
+        icon: <AddCircleOutlineOutlined color="secondary" />,
+        path: '/create'
+    }
+]
+
 class Layout extends Component {
+    state = {
+        path: '/'
+    }
+
+    handleListItemClick = (path) => {
+        this.setState({path})
+    };
+
     render() {
         const { classes } = this.props
         return (
             <div className={classes.root}>
+                {console.log(window.location.pathname)}
                 {/* app bar */}
                 {/* side drawer */}
                 <Drawer
@@ -41,13 +68,29 @@ class Layout extends Component {
                             Steven Notes
                         </Typography>
                     </div>
+
+                    {/* list / links */}
+                    <List>
+                        {menuItems.map(item => (
+                            <ListItem
+                                key={item.text}
+                                button
+                                component={Link}
+                                to={item.path}
+                                selected={this.state.path === item.path}
+                                onClick={(event) => this.handleListItemClick(item.path)}
+                            >
+                                <ListItemIcon>{item.icon}</ListItemIcon>
+                                <ListItemText primary={item.text} />
+                            </ListItem>
+                        ))}
+                    </List>
+
                 </Drawer>
                 <div className={classes.page}>
-                    <Link to='/create'>Create</Link><br />
-                    <Link to='/note'>Note</Link>
                     <Switch>
                         <Route path='/create' component={Create} />
-                        <Route path='/note' component={Note} />
+                        <Route path='/' component={Note} />
                     </Switch>
                 </div>
             </div>
