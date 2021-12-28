@@ -7,19 +7,18 @@ import { IconButton, Typography} from '@material-ui/core'
 import { withStyles } from "@material-ui/core/styles"
 
 const useStyles = () => ({
-    test: {
+    red_border: {
         border: '1px red solid'
     }
 })
 
 class NoteCard extends Component {
     render() {
-        const {id, title, category, details} = this.props
-        const { classes } = this.props
+        const {id, title, category, details, classes} = this.props
 
         return (
             <div>
-                <Card elevation={1} className={classes.test}>
+                <Card elevation={1} className={(category === 'work')?classes.red_border:null}>
                     <CardHeader
                         action={
                             <IconButton onClick={() => this.props.handleDelete(id)}>
