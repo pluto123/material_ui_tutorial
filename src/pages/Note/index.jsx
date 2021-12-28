@@ -1,8 +1,15 @@
 import { Component } from 'react'
 import Container from '@material-ui/core/Container'
 import fetch from 'isomorphic-fetch'
-import Grid from '@material-ui/core/Grid'
-import NoteCard from '../components/NoteCard'
+import NoteCard from '../../components/NoteCard'
+import Masonry from 'react-masonry-css'
+import './index.css'
+
+const breakpoints = {
+    default: 3,
+    1100: 2,
+    700: 1
+}
 
 export default class Note extends Component {
     state = {
@@ -31,13 +38,17 @@ export default class Note extends Component {
         const {notes} = this.state
         return (
             <Container>
-                <Grid container spacing={3}>
+                <Masonry
+                   breakpointCols={breakpoints}
+                   className="my-masonry-grid"
+                   columnClassName="my-masonry-grid_column" 
+                >
                     {notes.map(note => (
-                        <Grid item key={note.id} xs={12} md={6} lg={4}>
+                        <div item key={note.id}>
                             <NoteCard {...note} handleDelete={this.handleDelete}/>
-                        </Grid>
+                        </div>
                     ))}
-                </Grid>
+                </Masonry>
             </Container>
         )
     }
