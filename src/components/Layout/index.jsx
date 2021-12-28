@@ -12,6 +12,7 @@ import { AddCircleOutlineOutlined, SubjectOutlined } from '@material-ui/icons'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import { format } from 'date-fns'
+import Avatar from '@material-ui/core/Avatar'
 
 const drawerWith = 240
 
@@ -39,6 +40,9 @@ const useStyles = (theme) => ({
     toolbar: theme.mixins.toolbar,
     date: {
         flexGrow: 1
+    },
+    avatar: {
+        marginLeft: theme.spacing(2)
     }
 })
 
@@ -81,6 +85,7 @@ class Layout extends Component {
                         <Typography>
                             Steven
                         </Typography>
+                        <Avatar src="/pluto.png" className={classes.avatar}/>
                     </Toolbar>
                 </AppBar>
                 {/* side drawer */}

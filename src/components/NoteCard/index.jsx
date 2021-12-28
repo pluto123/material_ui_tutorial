@@ -4,15 +4,28 @@ import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
 import { DeleteOutlined } from '@material-ui/icons'
 import { IconButton, Typography} from '@material-ui/core'
+import Avatar from '@material-ui/core/Avatar'
+import { withStyles } from "@material-ui/core/styles"
 
-export default class NoteCard extends Component {
+const useStyles = () => ({
+    red_border: {
+        border: '1px red solid'
+    }
+})
+
+class NoteCard extends Component {
     render() {
-        const {id, title, category, details} = this.props
+        const {id, title, category, details, classes} = this.props
 
         return (
             <div>
-                <Card elevation={1}>
+                <Card elevation={1} className={(category === 'work')?classes.red_border:null}>
                     <CardHeader
+                        avatar={
+                            <Avatar>
+                                {category[0].toUpperCase()}
+                            </Avatar>
+                        }
                         action={
                             <IconButton onClick={() => this.props.handleDelete(id)}>
                                 <DeleteOutlined />
@@ -31,3 +44,5 @@ export default class NoteCard extends Component {
         )
     }
 }
+
+export default withStyles(useStyles) (NoteCard)
